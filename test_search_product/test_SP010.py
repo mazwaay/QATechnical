@@ -19,17 +19,17 @@ def browser():
     yield driver
     driver.quit()
 
-def test_single_keyword_search(browser):
+def test_searching_with_irrelevant_keywords(browser):
     website = "https://shop.bukuerlangga.com/"
     browser.get(website)
 
     search_bar = browser.find_element(By.NAME, "judul")
-    search_bar.send_keys("teknologi" + Keys.ENTER)
+    search_bar.send_keys("Buku IPA harga Rp 10.000" + Keys.ENTER)
 
     time.sleep(5)
     
     try:
-        WebDriverWait(browser, 10).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "h5"), "MATEMATIKA RUMP.…"))
-        print("Teks 'MATEMATIKA RUMP.…' ditemukan pada tag h5.")
+        WebDriverWait(browser, 10).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "h4"), "Data Tidak Ditemukan"))
+        print("Teks 'Data Tidak Ditemukan' ditemukan pada tag h4.")
     except TimeoutException:
-        print("Teks 'MATEMATIKA RUMP.…' tidak ditemukan pada tag h5 dalam waktu 10 detik.")
+        print("Teks 'Data Tidak Ditemukan' tidak ditemukan pada tag h5 dalam waktu 10 detik.")
